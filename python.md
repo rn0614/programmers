@@ -65,6 +65,7 @@ def solution(new_id):
 # 정규식 정리
 [0-9], \d 숫자 한자리
 [^0-9]    숫자가 아닌 것들 한자리씩
+^[0-9]	  첫 문자가 숫자인것
 \s        공백
 \S , ^\s  비공백 
 \w [^a-zA-Z0-9] 숫자도 영어도 아닌것
@@ -75,7 +76,7 @@ def solution(new_id):
 
 ## 숫자와 문자열(딕셔너리, replace를 이용한 특정 요소 변형)
 
-- (숫자,문자)가 섞인 문자열에서 문자만 골라서 숫자화
+- 문자 안에 일정 패턴을 다른 패턴으로 바꿀 때
 - `문자열.replace(원래문자 , 바꿀문자)`
 - 바꾸는 방향이 정해진 것은 dict와 for key, value in dict.items(): 를 통해 바꿀 수 있다.
 
@@ -96,10 +97,11 @@ def solution(s):
 
 ## 키패드 누르기(행렬에서 특정조건에 맞게 인덱스 지정)
 
-- 키를 2차원 행렬에 위치시킨다
+- 조건에 따라 움직일 대상을 번갈아가면서 움직임. 위치좌표(index)와 값 좌표(pad)가 다른 테이블 형태
 - hand를 이동시킬 조건은 핸드폰 번호이고, hand의 위치정보는 행렬의 인덱스로 나타내는 것이 관건
 - 행렬 조건에 따라 손의 위치를 이동시킨다
-  - pad[0].index('값') : pad[0]에서 값을 가진곳의 인덱스를 출력
+  - pad[0].index('값') : 값이 중복해서 여러번 나오지 않는다는 가정하에 값이 있는 위치를 알 수 있음.
+- 조건1 왼쪽 오른쪽에 따라/ 조건2 가운데는 가까운 손부터 / 조건 3 왼손잡이 오른손잡이
 
 ``` python
 def solution(numbers, hand):
@@ -156,7 +158,9 @@ def solution(board, moves):
             if board[j][i-1]!=0:
                 list.append(board[j][i-1])
                 board[j][i-1]=0 			# 해당 값을 뽑기
-                if len(list)>=2:
+                
+                # 같은 값이 연속해서 2번 나올 때 쓰는 방식
+                if len(list)>=2:			# list=[0]으로 하면 안 넣어도 됨.
                     if list[-2]==list[-1]: 	# 뒤에 2개 살펴서 같으면 제거하는 과정
                         list.pop(-1)
                         list.pop(-1)
@@ -182,6 +186,10 @@ def solution(absolutes, signs):
         else:
             answer-=absolute
     return answer
+
+
+#### 리스트 컴프레션으로 한줄로 풀기
+	answer=sum([i if j else -i for i,j in zip(absolutes,signs)])
 ```
 
 
@@ -189,6 +197,7 @@ def solution(absolutes, signs):
 ## 내적(zip 사용)
 
 - zip 사용 위 음양더하기와 같음
+- 
 
 ```python
 def solution(a, b):
@@ -196,6 +205,8 @@ def solution(a, b):
     for i,j in zip(a,b):
         answer+=i*j
     return answer
+
+answer=sum([i*j for i,j in zip(a,b)])
 ```
 
 
@@ -204,7 +215,7 @@ def solution(a, b):
 
 ## 소수만들기(combinations , 소수 판별(for-else문))
 
-- 리스트에서 3개를 뽑기 `combinations(리스트, 3)`
+- 리스트에서 3개를 뽑기 `from itertools import combinations(리스트, 3)`
 - 소수 판별하기
 
 ```python
@@ -225,7 +236,7 @@ def solution(nums):
                 
     return answer
 
-
+#####################################
 
 from itertools import combinations
 def solution(nums):
@@ -262,6 +273,18 @@ def solution(participant, completion):
     print(list(answer))
     return list(answer)[0]
 ```
+
+
+
+```python
+from collections import Counter
+answer=Counter[리스트]
+list(answer.most_common())     #-> [(값,갯수), (값, 갯수)] # 또 가장 빈번한 수부터 배치
+
+#Counter은 +,- &, | 등의 연산이 가능하다. 
+```
+
+
 
 
 
@@ -305,7 +328,7 @@ def solution(array, commands):
   - deq.pop()
 - import itertools.cycle 써볼것
   - next(cycle)
-- 순차적 반복의 핵심은 나머지 [i%len(list1[k])]
+- `순차적 반복의 핵심은 나머지 [i%len(list1[k])]`
 
 ``` python
 def solution(answers):
@@ -338,7 +361,8 @@ def solution(answers):
         for i,j in enumerate(answers):
             if list1[k][i%len(list1[k])]==answers[i]:
                 answer[k]+=1
-                
+    
+    # 리스트 내 가장 큰 숫자들을 오름차순으로 정렬하는 법
     for i in range(3):
         if answer[i]==max(answer):
             sol.append(i+1)
@@ -535,6 +559,29 @@ def solution(N, stages):
 
 
 
+## 약수의 개수와 덧셈
+
+```python
+def solution(left, right):
+    answer=0
+    for i in range(left,right+1):
+        count=0
+        for j in range(1,i+1):
+            if i%j==0:
+                count+=1
+        
+        # 짝수면 +i를 answer에 더하고 홀수면 -i를 더하는 알고리즘
+        if count%2==0:
+            answer+=i
+        else:
+            answer-=i
+    return answer
+```
+
+
+
+
+
 ## 3진법 뒤집기
 
 - str 형태는 +=str로 추가할 수 있음.
@@ -542,12 +589,15 @@ def solution(N, stages):
 
 ``` python
 def solution(n):
-    tmp = ''
+    # 3진법을 만드는 방법 //10진번 -> 3진법
+    temp=''
     while n:
-        tmp += str(n % 3)
-        n = n // 3
-
-    answer = int(tmp, 3)
+        temp +=str(n%3)
+        n=n//3
+    print(temp[::-1])
+    
+    # 3진법을 10진법으로 바꾸기
+    answer = int(temp,3)
     return answer
 ```
 
@@ -575,14 +625,15 @@ def solution(d, budget):
 
 ##################
 
+# 최대한 많은 부서에 예산 분배
 def solution(d, budget):
-    answer = 0
-    for i in range(len(d)):
-        if budget-min(d)>=0:
-            budget=budget-min(d)
-            d.remove(min(d))       
-            answer+=1
-    return answer
+    temp=0
+    d.sort()
+    for i,j in enumerate(d):
+        temp+=j
+        if temp>budget:
+            return i
+    return len(d)
 ```
 
 
@@ -637,15 +688,8 @@ def solution(numbers):
 
 from itertools import combinations
 def solution(numbers):
-    answer = []
-    p=combinations(numbers,2)
-
-    for i in list(p):
-        print(sum(list(i)))
-        answer.append(sum(list(i)))
-    answer=list(set(answer))
-    answer.sort()
-    return answer
+    return sorted(set(map(sum,list(combinations(numbers,2)))))
+# sorted()는 내부에 set을 받을 수 있고 결과는 list로 반환함.
 ```
 
 
@@ -665,6 +709,49 @@ def solution(a, b):
 
 
 
+## 최소직사각형
+
+- 이중 리스트에서 큰것 중에 가장 큰 값, 작은 것중에 가장 큰 값을 찾아 곱하는 알고리즘
+
+```python
+def solution(sizes):
+    max1=[]
+    min1=[]
+    for size in sizes:
+        max1.append(max(size))
+        min1.append(min(size))
+    answer=max(max1)*max(min1)
+    return answer
+```
+
+
+
+##  나머지가 1이 되는 숫자
+
+```python
+def solution(n):
+    for i in range(1,1000001):
+        if n%i==1:
+            return i
+```
+
+
+
+## 부족한 금액 계산하기
+
+```python
+def solution(price, money, count):
+    answer = money
+    for i in range(1,count+1):
+        answer-=i*price
+    if answer<0:
+        return -answer
+    else:
+        return 0
+```
+
+
+
 
 
 ## 비밀지도
@@ -672,6 +759,7 @@ def solution(a, b):
 - bin 을 사용하면 0b101010 식으로 0b를 제외한 뒤에 bin(숫자)[2:] 사용시 이진법으로 변경가능 
 - bin(a|b) 사용시 a,b중 하나라도 1이 있으면 1을 반환
 - `"0"*(n-len(bin_str))+bin_str)` 을 통해 일정한 길이(n)으로 통합 가능
+- `문자열.rjust(갯수, '채울 문자') // 문자열.zfill(갯수) = rjust(갯수, '0')`
 
 ```python
 def solution(n, arr1, arr2):
@@ -681,6 +769,25 @@ def solution(n, arr1, arr2):
         ans.append(("0"*(n-len(bin_str))+bin_str).replace("1","#").replace("0"," "))
     return ans
 
+########3
+def solution(n, arr1, arr2):
+    answer = []
+    for i,j in zip(arr1,arr2):
+        cur=''
+        for k in range(n):
+            if (two(n,i)[k]=='1') | (two(n,j)[k]=='1'):
+                cur+='#'
+            else:
+                cur+=' '
+        answer.append(cur)
+    return answer
+
+def two(n,number):
+    temp=''
+    while number:
+        temp+=str(number%2)
+        number=number//2
+    return temp[::-1].zfill(n)
 
 
 ####
@@ -749,6 +856,14 @@ def solution(arr):
         if answer[-1:]==[i]: continue
         answer.append(i)
     return answer
+
+###########
+def solution(arr):
+    answer = [arr[0]]
+    for i in arr:
+        if answer[-1]!=i:
+            answer.append(i)
+    return answer
 ```
 
 
@@ -766,6 +881,8 @@ def solution(arr, divisor):
     if answer==[]:
         answer.append(-1)
     return sorted(answer)
+
+#######
 
 def solution(arr, divisor): return sorted([n for n in arr if n%divisor == 0]) or [-1]
 ```
