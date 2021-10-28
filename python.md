@@ -927,11 +927,8 @@ def solution(strings, n):
 
 ### sorted 의 key parameter 사용하기.
 def strange_sort(strings, n):
-    '''strings의 문자열들을 n번째 글자를 기준으로 정렬해서 return하세요'''
-    return sorted(strings, key=lambda x: x[n])
-
-strings = ["sun", "bed", "car"] 
-print(strange_sort(strings, 1))
+    # sorted(리스트, key=lambda x : x[n]+x) 여기서 x는 리스트의 요소중 하나
+    return sorted(strings, key=lambda x: x[n]+x)
 ```
 
 
@@ -963,6 +960,9 @@ def solution(s):
 
 
 
+- 문자열.isdigit() : 숫자인지 확인
+- 문자열.islower() : 소문자인지 확인 
+
 
 
 ## 문자열 다루기 기본
@@ -985,6 +985,12 @@ def solution(seoul):
     return answer
 ```
 
+- index랑 find 차이  : find는 문자가 없으면 -1을 반환
+- 대신 find는 문자열에만 사용가능
+- index는 문자열, 리스트, 튜플, 딕셔너리에서 사용 가능
+
+
+
 
 
 ## 소수찾기
@@ -1000,8 +1006,6 @@ def solution(n):
         if i in num:
             num-=set(range(2*i, n+1,i))
     return len(num)
-    answer = 0
-    return answer
 ```
 
 
@@ -1010,7 +1014,7 @@ def solution(n):
 
 ## 수박수박수박수박수박수?
 
-- n번째마다 특정하기
+- n번째마다 특정하기`n%3`으로 특정가능
 
 ```python
 def solution(n):
@@ -1021,11 +1025,19 @@ def solution(n):
         else:
             answer+='수'
     return answer
+
+#############
+def solution(n):
+    dict1={0:'수',1:'박'}
+    answer=''
+    for i in range(n):
+        answer+=dict1[i%2]
+    return answer
 ```
 
 
 
-## 시저암호
+## 시저암호(다시풀기)
 
 - 문자열 함수에서 ord 사용하여 유니코드 변경후 해당 유니코드를 통해 위치 산정하기
 
@@ -1084,6 +1096,23 @@ def solution(s):
 def toWeirdCase(s):
     return " ".join(map(lambda x: "".join([a.lower() if i % 2 else a.upper() for i, a in enumerate(x)]), s.split(" ")))
 
+
+##############3
+
+def solution(s):
+    cnt=0
+    answer = ''
+    for i in s:
+        if i.isalpha():
+            if cnt%2==0:
+                answer+=i.upper()
+            else:
+                answer+=i.lower()
+            cnt+=1
+        else:
+            answer+=i
+            cnt=0
+    return answer
 ```
 
 
@@ -1110,7 +1139,7 @@ def sum_digit(number):
 
 #### 문자열에서도 in 쓰면 문자하나씩 가져오는걸 잊지말자.
 def sum_digit(number):
-    return sum([int(i) for i in str(number)])
+    return sum(map(int,[i for i in str(n)]))
 
 ```
 
@@ -1140,6 +1169,13 @@ def solution(n):
     answer.reverse()
     answer=int("".join(answer))
     return answer
+
+######
+
+def solution(n):
+    return int(''.join(sorted(str(n), reverse=True)))
+
+# sorted의 반환형은 list형태
 ```
 
 
@@ -1167,13 +1203,10 @@ def solution(n):
 
 ```python
 def solution(arr):
-    answer = []
-    if len(arr)==1:
+    arr.remove(min(arr))
+    if arr==[]:
         return [-1]
-    else:
-        answer=arr
-        answer.remove(min(arr))
-    return answer
+    return arr
 ```
 
 
@@ -1188,20 +1221,10 @@ def solution(arr):
 - 최소공배수는 두 수의 곱 빼기 최대공약수
 
 ```python
+from math import gcd
 def solution(n, m):
-    answer = [1,1]
-    samll=min(n,m)
-    big=max(n,m)
-    for i in range(1,samll+1):
-        if n%i==0 and m%i==0:
-            answer[0]=i
-    for i in range(big, n*m+1):
-        if i%n==0 and i%m==0:
-            answer[1]=i
-            break
+    answer = [gcd(n,m), n*m/gcd(n,m)]
     return answer
-
-
 
 ##########
 def gcdlcm(a, b):
@@ -1287,6 +1310,17 @@ def hide_numbers(s):
 def solution(A,B):
     answer = [[c + d for c, d in zip(a, b)] for a, b in zip(A,B)]
     return answer
+
+
+############3
+def solution(arr1, arr2):
+    answer = []
+    for i,j in zip(arr1,arr2):
+        cur=[]
+        for k in range(len(i)):
+            cur.append(i[k]+j[k])
+        answer.append(cur)
+    return answer
 ```
 
 
@@ -1319,20 +1353,24 @@ for i in range(b):
 
 
 
-## 문자열 압축
+## 문자열 압축(다시풀기)
 
 - zip을 할때 2개씩 묶는데 여기서는 빈 리스트 ['']를 더해 주므로 해결함.
 - 글자로부터 문자열과 숫자로 각 tok_len으로 글자를 뽑는법
   - 이중 리스트로 갯수와 글자를 묶는 형식으로 표현 `[['aab', 1], ['bac', 1], ['cc', 1]]`
     - 이중 리스트는 `for i,j in 이중리스트` 로 표현 가능
-  - sum 안에 (if else) 문이 들어갈 수 있음. 
+- list comprehension
 
 ```python
 def compress(text, tok_len):
+    #문자열 text를 tok_len 길이만큼 나누는 과정
     words = [text[i:i+tok_len] for i in range(0, len(text), tok_len)]
+    
     res = []
     cur_word = words[0]
     cur_cnt = 1
+    
+    # zip(words,words[1:]+[''])는 전거와 다음거 선택하는 과정
     for a, b in zip(words, words[1:] + ['']):
         if a == b:
             cur_cnt += 1
@@ -1340,6 +1378,7 @@ def compress(text, tok_len):
             res.append([cur_word, cur_cnt])
             cur_word = b
             cur_cnt = 1
+    
     return sum(len(word) + (len(str(cnt)) if cnt > 1 else 0) for word, cnt in res)
 
 def solution(text):
@@ -1417,6 +1456,8 @@ def solution(w,h):
 
 - 3진법과 같은점 : 숫자를 3개 사용
 - 다른점 0이 없고 4 라는 10 숫자가 있음.
+- 1,2,4  ,11,12,14,21,22,24   ,41  ,42  ,44
+- 1,2,10,11,12,20,21,22,100,101,102,110
 
 ```python
 def solution(n):
