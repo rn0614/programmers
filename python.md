@@ -1351,6 +1351,23 @@ for i in range(b):
 
 # level2
 
+- 하나의 리스트에서 앞뒤 두개의 요소를 비교할 때 쓰는 기법
+
+```python
+list_example=[1,2,3,4]
+# 맨 마지막을 판단에 따라 '', 0,-1 등으로 하여 문제 없게 돌리는 방식
+for i,j in zip(list_example,list_example[1:]+['']):
+    print(i,j)
+
+# 맨 마지막은 두개 비교하고 끝에 한개는 비교하지 않는 방식 
+for i in range(len(list_example)-1):
+    print(list_exaple[i], list_example[i+1])    
+```
+
+
+
+
+
 
 
 ## 문자열 압축(다시풀기)
@@ -1412,7 +1429,7 @@ def solution(record):
     answer = []
     nickname={}
     for i in record:
-        j=i.split(' ')
+        j=i.split(' ') # spilt(' ') 띄어쓰기 주의 문제에서 공백을 연속으로 낼 건지 아니면 하나만 내는지 파악해서 쓸 것
         cur_doing=j[0]
         cur_id=j[1]
         
