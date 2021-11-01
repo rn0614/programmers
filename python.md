@@ -1366,6 +1366,9 @@ for i in range(len(list_example)-1):
 
 
 
+- `range(시작, 끝, 간격)` 잘 이용하기. 간격과 안 맞으면 끝 내용은 그냥 간격보다 적게 묶임
+- 
+
 
 
 
@@ -1373,10 +1376,10 @@ for i in range(len(list_example)-1):
 ## 문자열 압축(다시풀기)
 
 - zip을 할때 2개씩 묶는데 여기서는 빈 리스트 ['']를 더해 주므로 해결함.
-- 글자로부터 문자열과 숫자로 각 tok_len으로 글자를 뽑는법
-  - 이중 리스트로 갯수와 글자를 묶는 형식으로 표현 `[['aab', 1], ['bac', 1], ['cc', 1]]`
-    - 이중 리스트는 `for i,j in 이중리스트` 로 표현 가능
-- list comprehension
+- `words = [text[i:i+tok_len] for i in range(0, len(text), tok_len)]`
+  - text 라는 문자열을 tok_len 길이로 파싱하는 방법
+- 첫 값인 cur_word[0]은 입력받을 수 없음. 따라서 초기값으로 세팅
+- res의 형태는 [['a',1],['b',1]] 형식으로 들어감. 
 
 ```python
 def compress(text, tok_len):
@@ -1834,5 +1837,69 @@ def solution(places):
         else: answer.append(0)
             
     return answer
+```
+
+
+
+
+
+## 소수찾기
+
+```python
+from itertools import permutations
+def is_prime(num):
+    if num>=2:
+        for i in range(2,num):
+            if num%i==0:
+                return False
+        return True
+
+
+def solution(numbers):
+    num_list=[num for num in numbers]
+    num_list2=[]
+    for i in range(1,len(num_list)+1):
+        num_list2+=(list(permutations(num_list,i)))
+        # +=와 append의 차이 리스트 append면 2중리스트로 들어가고
+        # +=면 하나의 리스트에 요소를 추가하는 형식
+    num_set=set([int(("").join(p)) for p in num_list2])
+    answer = 0
+    for i in num_set:
+        if is_prime(i):
+            answer+=1
+    
+    return answer
+
+
+####################
+
+from itertools import permutations
+def solution(n):
+    a = set()
+    for i in range(len(n)):
+        a |= set(map(int, map("".join, permutations(list(n), i + 1))))
+    a -= set(range(0, 2))
+    for i in range(2, int(max(a) ** 0.5) + 1):
+        a -= set(range(i * 2, max(a) + 1, i))
+    return len(a)
+```
+
+
+
+
+
+## 가장 큰 수
+
+```python
+def solution(numbers):
+    # 기본적으로 numbers의 요소를 str 형태로 붙임으로 map으로 전부 str화 해준다. 
+    list1=list(map(str,numbers))
+    # numbers를 정렬하는 기준을 세운다.
+    # 전체를 구한다음 그중 최고값을 구한다?
+    # greedy 한 방식이 있을 것
+    list2=sorted(list1, key=lambda x : x*3, reverse=True)
+    
+    # list2를 순서대로 합친뒤 문자로
+    return str(int(''.join(list2)))
 ```
 
