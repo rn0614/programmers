@@ -1513,23 +1513,24 @@ def change124(n):
 
 ## 기능개발
 
-- 
-
 ```python
+from math import ceil
 def solution(progresses, speeds):
     answer = []
+    list1=[ceil((100-progress)/speed) for progress, speed in zip(progresses,speeds)]
+    temp=list1[0]
     cnt=0
-    while True:
-        progresses=[progress+speeds[i] if progress+speeds[i] <100 else 100 for i,progress in enumerate(progresses) ]
-        while progresses[0]==100:
+    for i in range(len(list1)):
+        if list1[i]<=temp:
             cnt+=1
-            progresses.pop(0)
-        if cnt !=0:
+        else:
             answer.append(cnt)
-            cnt=0
+            cnt=1
+            temp = list1[i]
+    answer.append(cnt)
     return answer
 
-#
+#########
 
 def solution(progresses, speeds):
     answer = []
@@ -1590,7 +1591,7 @@ def solution(scoville, K):
 
 
 
-## 타깃 넘버
+## 타겟 넘버
 
 - +/- 둘다 진행해야하는 것은 임시 리스트에 추가하고 임시리스트를 새로 리스트로 변경하기
 
@@ -1901,5 +1902,97 @@ def solution(numbers):
     
     # list2를 순서대로 합친뒤 문자로
     return str(int(''.join(list2)))
+```
+
+
+
+
+
+## 튜플
+
+```python
+import re
+from collections import Counter
+
+def solution(s):
+    s = Counter(re.findall('\d+', s))
+    return list(map(int, [k for k, v in sorted(s.items(), key=lambda x: x[1], reverse=True)]))
+
+
+#######
+
+def solution(s):
+    #리스트 안에 집합이 있는 형태로변환/ 길이가 짧은 것부터 배열
+    list1=s[2:-2].split('},{')
+    list2=[set()]+[set(map(int,i.split(','))) for i in list1]
+    list2.sort(key=len)
+    
+    
+    #그 뒤부터 다음set-전set =요소 1개 나온 것을 answer에 추가
+    answer = []
+    for i in range(1,len(list2)):
+        a=list2[i]-list2[i-1]
+        answer.append(a.pop())
+    return answer
+```
+
+
+
+## 프린터
+
+```python
+def solution(priorities, location):
+    answer = 0
+    queue=[(idx,priority) for idx, priority in enumerate(priorities)]
+    while True:
+        cur=queue.pop(0)
+        if any(cur[1]<q[1] for q in queue):
+            queue.append(cur)
+        else:
+            # 인쇄작동
+            answer+=1
+            # 인쇄 한게 location과 같으면 해당 인쇄번수가 정답
+            if cur[0]==location:
+                return answer
+```
+
+
+
+
+
+## 전화번호부
+
+```python
+
+
+def solution(phone_book):
+    #phone_book.sort(key=len)
+    
+    for i in range(len(phone_book)):
+        cur=phone_book.pop(0)
+        if cur==phone_book[0][:len(cur)]:
+             return False
+    answer = True
+    return answer
+```
+
+
+
+## 행렬의 곱셈
+
+```PYTHON
+import numpy as np
+
+def solution(arr1, arr2):
+    arr11=np.array(arr1)
+    arr22=np.array(arr2)
+    answer=(arr11.dot(arr22)).tolist()
+    return answer
+
+
+#####
+
+def productMatrix(A, B):
+    return [[sum(a*b for a, b in zip(A_row,B_col)) for B_col in zip(*B)] for A_row in A]
 ```
 
