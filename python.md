@@ -1638,6 +1638,26 @@ def solution(s):
 
 
 
+## 행렬 테두리 회전하기
+
+``` python
+def solution(rows, columns, queries):
+    answer = []
+    table=[]
+    for row in range(rows):
+        table.append([a for a in range(row*columns+1, (row+1)*columns+1)])
+    
+    for query in queries:
+        query = [x-1 for x in query]
+        temp=table[query[0]][query[1]]
+        print(temp)
+    return answer
+```
+
+
+
+
+
 
 
 ## 5주차,모음사전
