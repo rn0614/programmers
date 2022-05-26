@@ -1,12 +1,27 @@
 # JAVA SCRIPT
 
+> 탄생배경은 동적인 프로그램 표현 / 하지만 기존에는 html 전체를 다시 렌더링하는 수준, Ajax가 나오면서 부분적으로 렌더링이 가능하게 됐음.
+
+>jQuery의 등장으로 다소 번거로웠던 DOM을 쉽게 제어 가능
+
+> 빠른 자바스크립트를 위해 Crome의 V8 엔진을 만들었고 이를 이용하여 Node.js가 탄생함
+
 > javaScript의 언어 탄생은 form 객체로부터 나온다. 기존의 post 방식에서 유효성 검사를 하기 위해 form 객체가 나왔고 이를 활용할 수 있는 언어가 javaScript
 
 
 
 - javaScript는 <script> 태그 사이에 위치한다.
-- 변수선언은 var로 한다./ 참조변수가 됨. (autoboxing) / 초기값 없으면 undefined
+
+  ​
+
+- 변수선언은 var로 한다./ 참조변수가 됨. (autoboxing)
   - wrapper 클래스로 형식 지정 (Boolean, Number, String)
+
+    - var numb = new Number(3); / var numb = 3;    (json 에 의해 자동으로 왼쪽으로 변화)
+    - 형식을 정해주지 않으면 undefined라는 값으로 정의됨. var x;
+
+    ​
+
 - 배열 객체 Array(); / stack 구조
   - push 를 통해 넣을 수 있음.
   - pop을 통해 꺼낼 수 있음.
@@ -17,22 +32,88 @@
     - var nums = new Array(3,4,5,hello);  : 배열 [3,4,5,hello]
   - splice() 메소드로 배열 관리 가능
     - nums.splice(1) : 인덱스 1 부터 이후 값 삭제
+
     - nums.splice(1,2) : 인덱스 1부터 2개의 값 삭제
+
     - nums.splice(1,2,"삽입") : 인덱스 1부터 2개 값 삭제하고 3번째 넣기
+
     - nums.splice(1,0,"추가") : 1위치에 "추가"
+
+      ​
+
+- 오브젝트 객체는 1대1 대응 객체임 키 값과 밸류값 존재 (Mash? Hash와 비슷)
+
+
+
+
 - 자바스크립트는 객체를 먼저 만들고 class와 prototype을 부여하는 순서로 진행
   - 정의도 안하고  var exam= new Object(); 후 갑자기 exam.kor=30; 으로 부여 가능
   - 단, 오타에 주의해야함. 오타날 시에도 그냥 생성됨.
   - exam[kor]=30; 가능
     - key 값을 이용한 저장으로 map 형으로 볼 수 있다.
+
+  ​
+
 - var 변수 = new Number(3); 담기가 힘듬
   - var 변수 =3;
   - var object = { };
     - var kor ={"eng":30, "kor":20, "math":10};  : 초기에 파라미터 설정가능
   - var array = [ ];
+
+  ​
+
 - json 객체
   - var json = [{"가":1, "나":2}, {"다":3,"라":4}, {"마":5,"바":6}];
-- 9강 완( eval, jsonparser에 대해서 10강에서 할거임)
+
+  ​
+
+- eval() 함수 외부에서 추출해 온 자료형은 보통 string 형태로 들어가 있음. 이를 형식으로 다시 바꿔주는 함수
+
+  - eval("var ar= " +추출변수명 +";");
+
+- JSON.parse()  
+
+  - 문자열 -> json 형태 단 키값이 문자열로 돼있어야함
+  - ''{"키값": "밸류값"}'' 형태의 json을  {키값:"밸류값"} 으로 변경 / 보통 키값에는 문자열이 안들어감
+
+  ​
+
+
+- JSON.stringify(json데이터타입)
+
+  - json -> 문자열 변환{"키값": "밸류값"}
+
+  ​
+
+- 출력도구
+
+  - console.log(); 개발자도구에 출력
+  - alert();             콘솔창
+  - document.write(); 작업물  
+
+- ===
+
+  - js는 따로 정의해도 x와 y가 같다고 인식
+
+  - ```javascript
+    var x=3;
+    var y=3;
+    document.write(x===y);   // true 출력 다른 객체를 인식하려면 var y= new Number(3); 호출
+    ```
+
+- 반복문
+
+  - ```js
+    for(var i=0; i<arr.length; i++){
+      content
+    }
+    ```
+
+  - ​
+
+
+
+
 
 
 
