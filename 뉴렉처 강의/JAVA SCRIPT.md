@@ -103,10 +103,13 @@
 
 - 반복문
 
-  - ```js
+  - ```javascript
     for(var i=0; i<arr.length; i++){
       content
     }
+
+    for(i in arr)      // (i in arr) == (var i=0; i<arr.length; i++)
+      alert(arr[i]);   // i 는 arr의 길이에 해당하는 length를 배출
     ```
 
   - ​
