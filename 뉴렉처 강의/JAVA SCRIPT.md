@@ -109,12 +109,107 @@
     }
 
     for(i in arr)      // (i in arr) == (var i=0; i<arr.length; i++)
-      alert(arr[i]);   // i 는 arr의 길이에 해당하는 length를 배출
+      alert(arr[i]);   // i 는 arr의 길이에 해당하는 length바를 배출
+
     ```
 
-  - ​
+- 함수 만들기(세가지 방식으로 생성)
 
+  - var add = new Function("x, y", "retrun x+y");
 
+  - var add = function(x,y){ return x+y};
+
+  - function add(x,y){return x+y};
+
+  - 다른 언어와 달리 함수를 객체로 만들기 때문에 객체로 호출가능
+
+    - alert(add(3,4));
+
+  - 자바스크립트는 추가 인자가 주어졌을 때 ex) add(x,y,z) 일 때 뒤에 z는 무시됨 
+
+    - 내부에서 arguments 요소가 일단 주어진 인자를 배열형태로 받음
+
+    - ```javascript
+      function add(x,y,z){
+        alert(arguments.length)    // 3개로 나옴
+        alert(arguments[2])        // z로 나옴 주어진 요소를 따로 받을 수 있음.
+        var temp=0;
+        for add(i in arguments){
+          if(typeof arguments[i] == "number"){
+            temp+=arguments[i]
+          }
+        }
+        return temp            	// 숫자 타입으로 받은 것을 다 더하는 함수
+      }
+      ```
+
+- 참조변수 시기와 사용
+
+  - ```javascript
+    // 정적인 방식으로 생성됨.
+    alert(a)   	// undefined
+    var a = 1
+    alert(a)   	// 1
+
+    // 에러남
+    alert(b)   	//
+    b=1			// 전역객체
+
+    // 이름이 같을경우 우선순위는 지역변수가 우선임
+    // javaScript의 지역변수 가시영역은 함수로만 묶임. 일반 블록의 경우 블록 외부에서도 동일하게 변수 사용가능
+    function f1(){
+      var c=1
+    }
+    alert(c) // 값 없음
+    {
+      var d=1
+    }
+    alert(d) // 값 있음
+    ```
+
+- 클로저
+
+  - 함수를 객체로 만들기 때문에 함수의 지역변수가 반환되지 않고 계속 남아있는 현상
+
+  - 생명주기가 계속 남아있음
+
+  - ```javascript
+    function f1(){
+      var a=1;
+      
+      return function f2(){     // function f2는 closure
+        return a;
+      }
+    }
+
+    var f = f1();   // a를 리턴받음. f1()을 종료해야하는데 a를 써야하니 못닫음
+    var a = f();  	// 
+    ```
+
+- 브라우저 객체
+
+  - window			윈도우 창
+
+  - window.location   윈도우 주소
+
+  - window.history     윈도우 뒤로가기/앞으로 가기
+
+  - window.document 윈도우 폼 이용
+
+    - ``` javascript
+      //window 내장 함수
+      alert();
+      var x=prompt("출력문구",초기입력값); // 반환값은 String
+      x = parseInt(x);
+      var answer= confirm("메세지");             //  확인 취소 선택가능
+      if (answer){
+        alert("확인클릭")
+      }else{
+        alert("취소클릭")
+      }
+      ```
+
+    - ​
 
 
 
