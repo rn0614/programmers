@@ -209,10 +209,56 @@
       }
       ```
 
-    - ​
+- tag 안의 onclick, onmouseover 안의 내용도 javascript임.
+
+  - <input type="button" onclick="alert('안내 메시지');"/>
+
+  - 위 태그는 input이지만 아무 태그나 가능하다.
+
+  - ```jsp
+    <script>
+      function printAlert(){
+        var x="알람";
+        alert(x);
+      }
+    </script>
+
+    // 긴 함수형태를 상단에 선언하고 사용시에 호출하는 방식
+    <input type="button" value="알람" onclick="printAlert();">
+    ```
+
+- 문서의 엘리먼트 객체
+
+  - 엘리먼트 = 태그들과 비슷한 개념
+
+  - ```jsp
+    // 엘리먼트 객체가 만들어짐 따라서 javaScript에서 객체다루듯이 사용가능
+    // 이때 객체는 id와 같음.
+    <script>
+      function printResult(){
+        var x, y;
+        x=1
+        y=1
+        id1.value=x+y
+        span1.innerText=x+y;
+      }
+    </script>
+
+    // 버튼 클릭시 버튼 value가 값1-> 2로 변경되는 것을 볼 수 있음.
+    <input type ="button" id="id1" value="값1" onclick="printResult();">
+
+    // 안쪽의 text 변경시 innerText사용
+    <span id="span1" onclick="printResult();">innerText</span>
+    ```
+
+  - ​
 
 
 
+
+
+
+----------------------------------------------------------
 
 
 
