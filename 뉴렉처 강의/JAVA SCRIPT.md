@@ -251,7 +251,165 @@
     <span id="span1" onclick="printResult();">innerText</span>
     ```
 
+  - 스크립트 몰아서 작성하기
+
+  - ```jsp
+    <script>
+      function printResult(){
+      };
+      
+      function init(){
+        id1.onclick=printResult;
+      };
+      // 윈도우가 로드될 때 init() 함수 실행하는 부분
+      window.onload =init;
+    </script>
+
+    <input type ="button" id="id1" value="값1"/>
+    ```
+
+  - 명명규칙에 위배되지 않는 법
+
+  - ```jsp
+    <script>
+      function printResult(){
+        var btnPrint= document.getElementById("btn-print");
+      };
+      
+      function init(){
+        var btnPrint= document.getElementById("btn-print");
+        btnPrint.onclick=printResult;
+      };
+      
+      window.onload =init;
+    </script>
+
+    <input type ="button" id="btn-print" value="값1"/>
+    ```
+
+  - 함수를 init에 익명함수로 넣기 / 전역변수 대신 init에서 함수를 정의
+
+  - ```javascript
+    window.onload= function(){
+      var btnPrint= document.getElementById("btn-print");
+      
+      btnPrint.onclick = function(){
+        var x= prompt("출력", 초기값);
+        var y= prompt("출력", 초기값);
+        
+        x=parseInt(x);
+        y=parseInt(y);
+        btnPrint.value = x+y;
+      };
+    }
+    ```
+
+- 코드분리와 이벤트 바인딩 방법
+
+  - ```jsp
+    <script src="source.js"></script>
+    ```
+
+  - 다수의 js 를 넣을 때는 onload가 아닌 addEventListener를 사용한다
+
+  - ```javascript
+    window.addEventListener("load", function(){
+      var btnPrint= document.getElementById("btn-print");
+    });
+    ```
+
+- id 말고 하위 엘리먼트들 선택하기
+
+  - getElementsByTagName()[0]   / getElementsByClassName()[0]
+
+  - ```jsp
+    <section id="sec1">
+      <ul>
+        <li>번호1</li>
+        <li>번호2</li>
+        <li>번호3</li>
+      </ul>
+    </section>
+
+    <script>
+      var lis = sec1.getElementsByTagName("li");
+      lis[0].textContent ="Hello";
+    </script>
+    ```
+
+- Selectors API
+
+  - querySelector
+    - document.querySelector("태그");
+    - document.querySelector(".클래스");
+    - document.querySelector("#id");
+  - querySelectorAll
+    - 배열방식으로 출력됨
+
+- form 태그를 사용할 때는 name태그 필요
+
+  - 키 : 밸류 값으로 키 값에 name 값이 들어감
+  - querySelectorAll("input[name='x']");  input태그를 가지며 name이 x인 쿼리 
+
+- 자식노드를 찾는 방법(children)
+
+  - var 자식 = 부모노드.children[1];  : 시작번호 1부터
+
+- 문서를 구성하는 Node 종류
+
+  - DocumentType                    : <!DOCTYPE ~
+  - Element                                 : <태그> <textarea> <p>
+    - Attr                                  : 태그 안에 rows, cols, type 등등 속성
+    - Entity                              : `&lt;`,` &gt;`, `&nbsp;` 등 특수기호
+    - EntityReference            : Entity를 감싸는 &와 ;
+    - Text                                 : 태그로 감싸지는 텍스트
+  - Comment                              : <-- 주석-->
+  - CDATASection                      : <![CDATA[특수기호를 포함한 내용]> : 대량의 특수기호 사용시
+  - Notation                               : 컬러색 픽셀 등 #0000ff , 10px등
+
+- 노드 생성 -> 삽입과정을 거침
+
+  - 생성 : createElement(태그명), createTextNode(데이터)
+
+  - 삽입 : insertBefor, appendChild, removeChild
+
+  - ```javascript
+    var 삽입내용 = 삽입할 내용 (docmument.querySelector('input').value;)
+    var 삽입노드 = document.createateElemnt("a"); // a태그 생성
+    삽입노드.appendChild(삽입내용);
+    존재노드.appendChild(삽입노드);
+    ```
+
+- innerHTML 을 사용해서 html 구문을 그냥 때려넣기 가능
+
+  - ```javascript
+    var content = contentInput.value;
+    menuList.innerHTML +=  '<a href="">HTML내용 : '+content+'<a>';
+    // 내용이 큰 잦은 교체는 문제가 발생. 아예 객체를 처음부터 다시 만드는 느낌
+    ```
+
+  - ```javascript
+    var title titleInput.value;
+
+    var html ='<a href="">' + title +'</a>';
+    var li = document.createElement("li");
+    li.innerHTML = html;
+    menuListUl.append(li);
+    ```
+
+  - ```js
+    // 제일 위에거 삭제하는 버튼
+    delButton.onclick = function(){
+      var liNode = menuListUl.children[0];
+      liNode.remove();
+    };
+    ```
+
   - ​
+
+
+
+
 
 
 
