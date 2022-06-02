@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+    <script src="javascript1-dom.js"></script>
+</head>
+<body>
+    <section id="section10">
+        <h1>Ex10- 클릭한 컬럼을 기준으로 레코드 정렬</h1>
+        <template>
+            <tr>
+                <td></td>
+                <td><a href=""></a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </template>
+
+
+        <table border="1" class="notice-list">
+            <thead>
+                <tr>
+                    <td class="id">번호</td>
+                    <td class="title">제목</td>
+                    <td class="reg-date">작성일</td>
+                    <td class="writer-id">작성자</td>
+                    <td class="hit">조회수</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- <tr style="background: lightblue">
+                    <td><input type="checkbox"></td>
+                    <td>1</td>
+                    <td><a href="1">자바스크립트</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2</td>
+                    <td><a href="2">자바스크립트2</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>3</td>
+                    <td><a href="3">자바스크립트3</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </section>
+
+
+
+    <section id="section9">
+        <h1>Ex9- 다중 노드 선택 방법과 일괄 삭제</h1>
+        <div>
+            <input type="button" class="del-button" value="삭제"/>
+            <input type="button" class="swap-button" value="바꾸기"/>
+        </div>
+
+        <table border="1" class="notice-list">
+            <thead>
+                <tr>
+                    <td><input class="overall-checkbox" type="checkbox"></td>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>작성일</td>
+                    <td>작성자</td>
+                    <td>조회수</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr style="background: lightblue">
+                    <td><input type="checkbox"></td>
+                    <td>1</td>
+                    <td><a href="1">자바스크립트</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2</td>
+                    <td><a href="2">자바스크립트2</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>3</td>
+                    <td><a href="3">자바스크립트3</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <section id="section8">
+        <h1>Ex8- 노드 삽입과 바꾸기</h1>
+        <div>
+            <input type="button" class="up-button" value="위로"/>
+            <input type="button" class="down-button" value="아래로"/>
+        </div>
+
+        <table border="1" class = "notice-list">
+            <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>작성일</td>
+                    <td>작성자</td>
+                    <td>조회수</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr style="background: lightblue">
+                    <td>1</td>
+                    <td><a href="1">자바스크립트</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><a href="2">자바스크립트2</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+
+
+                <tr>
+                    <td>3</td>
+                    <td><a href="3">자바스크립트3</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="section7">
+        <h1>Ex7 : 노드 복제와 탬플릿 태그</h1>
+        <div>
+            <input type="button" class="clone-button" value="복제"/>
+            <input type="button" class="template-button" value="추가"/>
+        </div>
+        <template>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </template>
+
+        <table border="1" class = "notice-list">
+            <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>작성일</td>
+                    <td>작성자</td>
+                    <td>조회수</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><a href="1">자바스크립트</a></td>
+                    <td>2019-01-25</td>
+                    <td>newlec</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+
+    <section id="section6">
+        <h1>Ex6 : 노드 조작 : 메뉴추가(createTextNode, Element)</h1>
+        <div>
+            <input class="title-input" name="title" />
+            <input type="button" class = "add-button" value="추가"/>
+            <input type="button" class = "del-button" value="삭제"/>
+        </div>
+        <ul class ="menu-list">
+        
+        </ul>
+    </section>
+
+
+
+    <section id="section5">
+        <h1>Ex5 : 엘레먼트 노드 속성 변경 & CSS속성변경</h1>
+        <div>
+            <input class="src-input" list = "img-list"/>
+            <datalist id="img-list">
+                <option value="img1.jpg">img1</option>
+                <option value="img2.jpg">img2</option>
+                <option value="img3.jpg">img3</option>
+            </datalist>
+            <select class = "img-select">
+                <option value="img1.jpg">img1</option>
+                <option value="img2.jpg">img2</option>
+                <option value="img3.jpg">img3</option>
+            </select>
+            <input type="color" class ="color-input"/>
+
+
+            <input class="change-button" type="button" value="변경하기"/>
+        </div>
+        <div>
+            <img class="img" src="imgs/img1.jpg" style="border:1px solid red;"/>
+        </div>
+    </section>
+
+
+    <section id="section4">
+        <h1>Ex4 : childNodes를 이용한 선택</h1>
+        <div class="box">
+            <input type="text"/>
+            <input type="text"/>
+        </div>
+    </section>
+
+
+    <section id="section3">
+        <h1>Ex3 : Selectors API level1</h1>
+        <div>
+            <input name ="txt-x" type="text" value="0" dir="rtl"/>
+            +
+            <input class ="txt-y" type="text" value="0" dir="rtl"/>
+            <input class ="btn-add" type="button" value="="/>
+            <input class ="txt-sum" type="text" value="0" readonly dir="rtl"/>
+        </div>
+    </section>
+
+
+
+
+    <section id="section2">
+        <h1>Ex2 : 엘리먼트 선택 개선</h1>
+        <div>
+            <input class ="txt-x" type="text" value="0" dir="rtl"/>
+            +
+            <input class ="txt-y" type="text" value="0" dir="rtl"/>
+            <input class ="btn-add" type="button" value="="/>
+            <input class ="txt-sum" type="text" value="0" readonly dir="rtl"/>
+        </div>
+    </section>
+
+
+    <section>
+        <h1>Ex1 : 계산기 프로그램</h1>
+        <div>
+            <input id="txt-x" type="text" value="0" dir="rtl"/>
+            +
+            <input id="txt-y" type="text" value="0" dir="rtl"/>
+            <input id="btn-add" type="button" value="="/>
+            <input id="txt-sum" type="text" value="0" readonly dir="rtl"/>
+        </div>
+    </section>
+    <hr/>
+</body>
+</html>

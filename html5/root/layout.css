@@ -1,0 +1,57 @@
+@import url(css/reset.css);
+
+#header{
+    height: 70px;
+    background-color: beige;
+    position:sticky;
+    top:0;
+}
+
+#s1 ul{
+    height: 500px;
+    background-color: yellow;
+}
+
+#s1 li:nth-child(1){
+    background-color: red;
+    
+}
+
+#s1 li:nth-child(2){
+    background-color: green;
+    position :fixed;
+    left: 100px;
+    top: 100px;
+    
+}
+
+.s1 ul{
+    display:flex;
+    background-color: gray;
+    flex-direction: row;
+}
+
+.s1 li{
+    flex-basis: 100px;
+    flex-grow: 1;
+}
+
+.s1 li:nth-child(1){
+    background-color: red;
+}
+
+.s1 li:nth-child(2){
+    background-color: green;
+}
+
+.s1 li:nth-child(3){
+    background-color: blue;
+}
+
+.s1 li:nth-child(4){
+    background-color: yellow;
+}
+
+.s1 li:nth-child(5){
+    background-color: lightblue;
+}

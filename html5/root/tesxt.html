@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function add(x,y,z){
+            alert(arguments.length)    // 3개로 나옴
+            alert(arguments[2])        // z로 나옴 주어진 요소를 따로 받을 수 있음.
+            var temp=0;
+            for(i in arguments){
+                if(typeof arguments[i] == "number"){
+                    temp+=arguments[i]
+                }
+            }
+        return temp
+        }
+        alert(add(3,5,6,'str'));
+    </script>
+</body>
+</html>
