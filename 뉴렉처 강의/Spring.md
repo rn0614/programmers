@@ -239,9 +239,15 @@ public class InlineExamConsole implements ExamConsole {
 
 
 
-@Component
+# @Component
 
 > anotation 을 이용하여 코드와 설정을 함께 가져감
+
+하위 anotation
+
+- controller
+- service
+- Repository
 
 ```xml
 <property name="exam" ref="exam" />
@@ -269,9 +275,11 @@ set 함수 위에 있으며 set함수를 실행해 준다
 
 
 
+
+
 # @Qualifier
 
-> 변수명이 다른 두개의 bean과 Autowired를 연결시키기 위한 annotation
+> 변수명이 다른 두개의 bean을 연결할 때 특정하기 위한 annotation
 >
 > @Qualifier("exam1")
 >
@@ -299,25 +307,52 @@ default 값이 true인데 <bean>이 없으면 오류나는 경우 발생
 
 
 
-# 어노테이션을 이용한 객체 생성
+# @Configuration
 
-<bean id ="console" class="ul.InlineExamConsole"></baen>  --xml에서
+> xml설정을 가져오기 
 
-을 
+Config.java( xml설정과 exam bean 생성)
 
+``` java
+package spring.di;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-클래스 위 의 @Component   / 읽기 위해 xml에 <context:component-scan base-package="spring.di.ui"/>
+import spring.di.entity.Exam;
+import spring.di.entity.NewlecExam;
 
-
-
-@Component
-
-class InlineExamConsole{
-
+@ComponentScan({"spring.di.ui", "spring.di.entity"})
+@Configuration
+public class NewlecDIConfig {
+	@Bean
+	public Exam exam() {    //<bean id="exam" class="spring.di.entity.NewlecExam" p:kor="10" p:eng="10" p:com="10" p:math="10"/> 과 동일
+		return new NewlecExam();
+	}
 }
 
+```
 
 
 
+main.java
+
+```java
+public class Program {
+	public static void main(String[] args) {
+      
+		// 지시서를 가져옴
+		ApplicationContext context =
+				new AnnotationConfigApplicationContext(NewlecDIConfig.class);
+		
+		// 지시서에서 이름으로 가져오기(console 객체는 Component로 만들어져 있음)
+		ExamConsole console =(ExamConsole) context.getBean("console") ;
+		
+		// 자료형명으로가져오기
+		//ExamConsole console =context.getBean(ExamConsole.class) ;
+		console.print();
+    }
+}
+```
 
