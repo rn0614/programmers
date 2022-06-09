@@ -356,3 +356,138 @@ public class Program {
 }
 ```
 
+
+
+
+
+
+
+# AOP(Aspect Oriented Programming)
+
+> 하나의 방법론 
+>
+> 사용자의 요구사항 로직 : oop (object orient)
+>
+> 개발자, 운영자 관점에서 사용하기 위한 로직 :  AOP
+
+
+
+primary Concern(주 업무)
+
+cross cutting concern() : 로그처리, 보안처리, 트랜잭션 처리
+
+보통 주 업무의 앞 뒤에 위치함
+
+이런 업무들을 관리하는데 있어 주업무를 처리하는 source code를 건들이게 돼 있음
+
+따라서 해당 내용을 따로 빼서 꽂아 넣을 수 있도록 하는 시스템이 AOP
+
+
+
+proxy class를 이용하여 가운데 primary Concern 을 생성하고 해당 부분을 구현함
+
+
+
+main.java
+
+```java
+package spring.aop;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+
+import spring.aop.entity.Exam;
+import spring.aop.entity.NewlecExam;
+
+public class Program {
+	public static void main(String[] args) {
+		
+		Exam exam = new NewlecExam(1,1,1,1);
+		
+        // 가져다 쓰는 class로 classload 후, 사용하는 인터페이스, handler 사용 
+		Exam proxy = (Exam) Proxy.newProxyInstance(NewlecExam.class.getClassLoader(), 
+				new Class[] {Exam.class}, 
+				new InvocationHandler() {
+					
+                    
+					@Override
+					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						
+						long start= System.currentTimeMillis();
+						
+                      	// method.invoke(클래스며, args)로 끼어넣을곳 특정
+						Object result = method.invoke(exam, args);
+						
+						long end= System.currentTimeMillis();
+						String message = (end-start) +"ms 시간이 걸림";
+						
+						System.out.println(message);
+						
+						return result;
+					}
+			
+		});
+		
+		System.out.printf("total is %d \n", proxy.total());
+		System.out.printf("avg is %f \n", proxy.avg());
+	}
+}
+```
+
+
+
+
+
+이런 부가적인 업무는 
+
+- before (앞에만 존재)
+- after returnning (뒤에만 존재)
+- after throwing (예외처리)
+- around (앞, 뒤 다 존재)
+
+
+
+
+
+
+
+# around
+
+main.java
+
+```java
+ApplicationContext context =
+				new ClassPathXmlApplicationContext("spring/aop/setting.xml");
+		
+		Exam proxy =(Exam) context.getBean("proxy");
+		
+		
+		System.out.printf("total is %d \n", proxy.total());
+		System.out.printf("avg is %f \n", proxy.avg());
+```
+
+
+
+setting.xml
+
+```xml
+<bean id="target" class="spring.aop.entity.NewlecExam" p:kor="10" p:eng="10" p:com="10" p:math="10"/>
+	<bean id="logAroundAdvice" class="spring.aop.advice.LogAroundAdvice"></bean>
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="target"/>
+		<property name="interceptorNames">
+			<list>
+				<value>logAroundAdvice</value>
+			</list>
+		</property>
+	</bean>
+</beans>
+```
+
+
+
+
+
+# Pointcuts
