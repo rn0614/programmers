@@ -491,3 +491,14 @@ setting.xml
 
 
 # Pointcuts
+
+> weaving  : cross cutting Concern -> core Concern  으로 가는 과정에서 뜨개질 같은 형사잉 나오는거
+>
+> join point : 연결되는 Core Concern
+>
+> proxy 는 기본적으로 전부 join point로 생각함.
+>
+> 하나의 method만 join point로 특정하는 것이 pointcuts
+
+
+
