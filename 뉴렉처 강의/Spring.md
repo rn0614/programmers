@@ -502,3 +502,40 @@ setting.xml
 
 
 
+
+
+
+
+# Spring Framework <-> Spring Boot
+
+- Spring Framework
+
+  - DI    : 의존성주입
+    - 의존 A객체를 정의하는 과정에서 B객체를 사용할 때 A는 B에 의존함
+    - B 객체에 @Service   / A객체에 @RestController , 생성자에 Autowired , 사용함수에 @GetMapping("/위치")
+    - 이 경우 A에 Service 객체가 아닌 Mock객체로 대체하여 사용하게 됨
+  - IOC : 제어역전
+  - AOP : 관점지향 객체지향 
+
+   :  셋 모두 느슨한 결합을 위한 도구들임
+
+  - jdbc, mvc,orm,test 등 20가지의 모듈이 존재
+
+  ​
+
+- Spring Boot
+
+  - 스프링 부트가 나오게 된 이유 : 단지 실행만 하면 되는 스프링 기반 어플리케이션을 쉽게 제작 가능 - 빠른 어플리케이션 생산
+  - 설정에 걸리는 시간을 줄임
+  - AutoConfiguration을 이용한다.
+  - spring boot starter dependency를 이용하여 다양한 패키지 수용
+  - 호환성 체크에 대한 고려가 없어짐
+  - starter  디펜던씨
+    - spring-boot-starter-web-service : SOAP 웹 서비스
+    - spring-boot-starter-web : RESTful 응용 프로그램
+    - spring-boot-starter-test : 단위 테스트, 통합 테스트
+    - spring-boot-starter-jdbc : 기본적인 jdbc
+    - spring-boot-starter-security : 스프링 시큐리티
+    - spring-boot-starter-date-jpa : spring date jpa
+    - spring-boot-starter-cache : 캐시
+
