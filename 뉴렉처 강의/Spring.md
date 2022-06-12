@@ -539,3 +539,22 @@ setting.xml
     - spring-boot-starter-date-jpa : spring date jpa
     - spring-boot-starter-cache : 캐시
 
+
+
+
+
+# Spring MVC
+
+- dispatcher 가 Controller에게 요청을 하고 그 반환값을 jsp 에 쏘는 중간 매개체 역할을 함.
+- 이 때 servlet 기능을 dispatcher에 한정하면
+  - controller는 servlet 기능 없이 자바 자료형으로 데이터를 사용가능
+  - controller는 톰캣, servlet과 결합력이 낮아 재사용 가능
+- dispatcher Servlet(spring mvc에 있음)을 이용 <url-mapping>
+- ​
+
+
+
+
+
+
+
