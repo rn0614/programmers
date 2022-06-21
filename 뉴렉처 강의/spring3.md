@@ -161,3 +161,45 @@ tiles를 이용하여 각 페이지 부분을 모듈화 하고 tiles로 위치�
 <bean id="noticeService" class="com.newlecture.web.service.JDBCNoticeService" />
 ```
 
+
+
+
+
+# 설정파일 분리하기
+
+- web.xml
+
+```xml
+<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring/service-context.xml
+			/WEB-INF/spring/security-context.xml
+		</param-value>
+	</context-param>
+  
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+```
+
+
+
+- 해당 주소에 xml 추가로 만들어서 각자 설정하기
+  - service-context.xml
+  - security-context.xml
+  - servlet-context.xml
