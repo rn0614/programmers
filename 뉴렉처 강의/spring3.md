@@ -135,8 +135,6 @@ tiles를 이용하여 각 페이지 부분을 모듈화 하고 tiles로 위치�
 
 
 
-
-
 # ioc
 
 ```xml
@@ -147,8 +145,6 @@ tiles를 이용하여 각 페이지 부분을 모듈화 하고 tiles로 위치�
 
 <bean id="noticeService" class="com.newlecture.web.service.NoticeService" />
 ```
-
-
 
 
 
@@ -203,3 +199,23 @@ tiles를 이용하여 각 페이지 부분을 모듈화 하고 tiles로 위치�
   - service-context.xml
   - security-context.xml
   - servlet-context.xml
+
+
+
+- 문서출력의 4가지 방법
+  - 서블릿 객체를 얻어서 문자열 출력하기
+  - @ResponseBody 설정을 통한 문자열 출력하기
+  - ResourceViewResolver 를 이용한 문서 출력
+  - TilesViewResolver를 이용한 문서 출력하기
+
+
+
+
+
+# frontend에서 backend 값의 종류
+
+- queryString (url로 전달)
+- post (사용자 입력문)
+- Path (경로 제공)
+- Cooki (브라우저 보관 문자열)
+- Header (요청 헤더로 전달되는 문자열)
