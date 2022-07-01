@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding School</title>
+    <link rel="stylesheet" href="css/frontStyle.css">
+    <link rel="stylesheet" href="css/jquery.bxslider.css">
+</head>
+<body>
+    <!-- 내비게이션-->
+    <!-- 모바일에서는 menu 누르면 나오도록 웹에서는 메뉴 없고 위에 block-inline으로-->
+    <nav>
+        <ul>
+            <li><a href="#">처음으로</a></li>
+            <li><a href="#">코딩이란</a></li>
+            <li><a href="#">왜 코딩 교육인가</a></li>
+            <li><a href="#">교육프로그램</a></li>
+        </ul>
+        <a href="#" id="trigger">MENU</a>
+    </nav>
+
+    <!--헤더(캐러셀이 들어갈 자리)-->
+    <section>
+        <div class="wrapper">
+            <div class="banner">
+                <div class="bxslider">
+                    <div><img src="webd-master/15/images/top-1.jpg"></div>
+                    <div><img src="webd-master/15/images/top-2.jpg"></div>
+                    <div><img src="webd-master/15/images/top-3.jpg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 왜 코딩교육: 좌우 2개 항목 -->
+    <section>
+        <div class="wrapper">
+            <header class="section-title">
+                <h3>왜 코딩 교육인가</h3>
+            </header>
+            <div class="text">
+                <p>코딩교육은 앞으로 미래 사회를 살아가는~</p>
+            </div>
+            <div class="ing">
+                <img src="webd-master/15/images/coding.png" width="250">
+            </div>
+        </div>
+    </section>
+
+    <!-- 한마디 -->
+    <section>
+        <div class="wrapper">
+            <div class="about">
+                <div class="msg">
+                    <p><img src="webd-master/15/images/quot-1.png"></p>
+                    <p>코딩은 사고범위를 넓혀줌</p>
+                    <p><img src="webd-master/15/images/quot-2.png"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 교육 프로그램 : 한 줄에 여러 항목 -->
+    <section>
+        <div class="wrapper">
+            <header class="section-title">
+                <h3>교육 프로그램</h3>
+            </header>
+            <div class="program">
+                <h4>언플러그드 활동</h4>
+                <p>언플러그드 내용</p>
+            </div>
+            <div class="program">
+                <h4>스크래치</h4>
+                <p>스크래치 내용</p>
+            </div>
+            <div class="program">
+                <h4>엔트리</h4>
+                <p>엔트리 내용</p>
+            </div>
+            <div class="program">
+                <h4>피지컬 컴퓨팅</h4>
+                <p>피지컬 컴퓨팅 내용</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <section class="footer">
+        <div class="wrapper">
+            <div class="footer-info">
+                <div class="content">
+                    <p>주소</p>
+                    <p>사업자 등록번호</p>
+                    <p>전화</p>
+                    <p>이메일</p>
+                </div>
+                <div class="sns">
+                    <a href="#"><img src="webd-master/15/images/fb.png"></a>
+                    <a href="#"><img src="webd-master/15/images/tw.png"></a>
+                    <a href="#"><img src="webd-master/15/images/ytube.png"></a>
+                    <a href="#"><img src="webd-master/15/images/gp.png"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.bxslider.js"></script>
+
+    <script>
+        $(function(){
+            var trigger = $('#trigger');
+            var menu = $('nav ul');
+            $(trigger).on('click', function(e){
+                e.preventDefault();
+                menu.slideToggle();
+            });
+        });
+
+        $('.bxslider').bxSlider({
+            auto:true,
+            autoHover:true
+        });
+
+    </script>
+</body>
+</html>

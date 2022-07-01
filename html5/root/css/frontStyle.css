@@ -1,0 +1,108 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+/* 내비게이션 */
+/* link는 방문전 visited는 방문후 hover는 마우스 오버했을 때 active는 마우스클릭 */
+a:link, a:hover, a:visited {
+    color: #fff;
+    text-decoration:none;
+    text-shadow: 1px 1px 0 #283744;
+}
+
+nav{
+    width: 100vw;
+    height:auto;
+    background: #34495e;
+    font-size:1.2em;
+    font-weight:bold;
+    position:relative;
+}
+
+nav ul {
+    display: none;
+    height: auto;
+}
+
+nav ul li {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #576979;
+}
+
+nav ul li a {
+    line-height: 50px;
+}
+
+nav a#trigger{
+    display:block;
+    background-color: #283744;
+    width: 100%;
+    padding-left: 15px;
+}
+
+@media screen and (min-width:764px){
+    nav{
+        height: 80px;
+        border-bottom: 2px solid #34495e;
+    }
+    nav ul {
+        list-style : none;
+        display: blcok;
+        width: 750px;
+        height: 80px;
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+    }
+
+
+
+    /* 126 왜 코딩교육 영역 */
+    .intro{
+        padding: 20px 50px;
+    }
+    .text{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .text h3{
+        font-size: 1.6em;
+        margin-bottom:50px;
+    }
+    .text p{
+        font-size: 1.2em;
+    }
+    .img {
+        text-align: center;
+        display: none;
+    }
+
+    @media screen and (min-width: 764px){
+        .intro {
+            display: flex;
+        }
+        .text{
+            flex:2;
+        }
+        .img{
+            display:block;
+            flex:1;
+        }
+        .img > img {
+            max-width:250px;
+        }
+    }
+
+
+    /* 교육 프로그램 영역 */
+
+
+
+
+}
+
+
