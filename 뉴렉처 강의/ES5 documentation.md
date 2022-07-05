@@ -82,7 +82,42 @@ var person ={
 };
 // method 형식이 아닌 일반 속성같이 사용한다.
 person.lang ="en";
-
 person.fullName   
+
+
+// Object.defineProperty()
+var person ={
+  firstname :"John",
+  lastname : "Doe",
+  language :"No"
+};
+
+Object.defineProperty(person, "language",{  //laguage property의 속성을 바꿈
+  value :"EN",
+  writable :true,
+  enumerable :true,
+  configurable :true
+});
+
+Object.defineProperty(person, "language", {
+  get : function() { return language },
+  set : function(value) { language = value.toUpperCase()}
+});
+
+
+// bind 상속
+const person ={
+  fistName:"John",
+  lastname: "Doe",
+  fullName: function(){
+    return this.firstname +" " + this.lastName;
+  }
+}
+
+const member ={
+  firstName:"Hege",
+  lastName:"Nilsen"
+}
+let fullName = person.fullName.bind(member);
 ```
 
