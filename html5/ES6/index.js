@@ -1,5 +1,5 @@
 // 요약 let은 지역변수 선언을 위해서 추가됨
-// const는 상수 선언을 위해 사용되고 function이 도중에 바뀌는 것을 방지
+// const는 상수 선언을 위해 사용됨(재선언 불가) function이 도중에 바뀌는 것을 방지
 
 
 // var의 문제점 : 모든 변수가 전역변수로 사용됨
@@ -13,6 +13,7 @@ console.log(x);
 console.log(x);
 
 
+// if안에 value는 if안에서 끝나야하는데 그렇지 않음
 function getValue(condition){
     if(condition){
         var value= "ok";
@@ -22,6 +23,7 @@ function getValue(condition){
         return value;
     }
 };
+
 // var은 객체가 없어야 하는 데 undefined 로 생성됨
 console.log(getValue(false));
 
@@ -65,7 +67,7 @@ let newobj = {
     math:math
 };
 
-// 위와 같은 객체가 생성됨 즉 키값이 자동으로 밸류랑 같음
+// 위와 같은 객체가 생성됨 즉 키값이 자동으로 밸류랑 같음(value값을 변수로 넣을 때 key값이 없다면 value명이 key값)
 let newobj2 ={
     kor,
     eng,
@@ -76,7 +78,7 @@ let newobj2 ={
 // 아래와 같이 리턴값을 저렇게 던져도 키 이름값이 그대로 적용
 // function을 반환할 때 그냥 함수명(){} 으로 반환 가능
 function createnewobj(kor, eng, math){
-    return { kor, eng,math, total(){} };
+    return { kor, eng, math, total(){} }; // 이부분이 그냥 새로운 newobj2임
 }
 
 
@@ -99,15 +101,14 @@ let style2 ={
 let exam ={kor, eng, math};
 // destructing 이라고 객체의 속성을 나누어서 변수에 담는 것이 있음.
 // 더 바람직, 연산수가 줄어듦
-function printExam1(examl){
-    let kor = exam.kor;
-    let eng = exam.eng;
-    let math = exam.math;
+function printExam1(exam1){
+    let kor = exam1.kor;
+    let eng = exam1.eng;
+    let math = exam1.math;
 
     let total = kor+ eng+ math;
 
-    console.log(`kor : ${kor}, eng : ${eng}, math : ${math}`);
-
+    console.log(`kor : ${kor}, eng : ${eng}, math : ${math}, total : ${total}`);
 }
 
 // 편하게 바꾸기 단 변수명 동일해야함
@@ -159,7 +160,6 @@ function printExam2({kor, eng}){
     let {kor:k, eng, math} = exam;
 
     console.log(`kor : ${k}`)
-
 }
 
 // 8. 객체안 객체요소 가져오기
@@ -198,8 +198,6 @@ function printExam2({kor, eng}){
 {
     let exam =[10,20,30, [40,50]];
     let [kor , eng, math, [com, history]] =exam;
-
-
 }
 
 //------------------컬렉션 추가
@@ -358,7 +356,7 @@ function printExam2({kor, eng}){
 
     // 기존에는 해당 부분을 정의해서 sort 매개변수로 넣었는데
     // compare(x,y){return x-y} 식으로 이를 간편하게 바꿈
-    nums.sort((x,y)=> x-y);
+    nums.sort((x,y)=> {return x-y});
     console.log(nums);
 }
 
@@ -479,7 +477,6 @@ function printExam2({kor, eng}){
     const Mike ={
         name : "Mike",
         age: 30
-
     }
 
     class student{
@@ -505,18 +502,16 @@ function printExam2({kor, eng}){
     console.log(Object.keys(laychel));
     console.log(Object.values(laychel));
     console.log(Object.entries(laychel));
-
 }
 
 
 // 추가 사항
-
 {
     // 객체를 복제함
-    const user={name: "tomas", geneder:"남" };
+    const user={name: "tomas", gender:"남" };
 
-    //const newUser = user.assign({gender:"여"},user);
-
+    const newUser = Object.assign({gender:"여"},user);
+    console.log(newUser);
 }
 
 // 유일한 property를 사용할 때 Symbol 사용
@@ -948,15 +943,252 @@ function printExam2({kor, eng}){
 }
 
 
-// promise
+// promise , resolve는 성공, reject 실패
 {
+    // 3초뒤 state : 대기(pending) -> 성공(fulfilled) 
+    const pr = new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            resolve('OK')
+            //reject(new Error("error 발생"));
+        }, 3000);
+    });
+
+    pr.then(
+        function(result){            // 이행됐을 때 실행  // ok값이 들어옴
+            console.log(result+' 가지러간다');
+    }).catch(
+        function(err){
+            console.log(err + ' 아 오늘도 없네');
+        }
+    ).finally(
+        function(){
+            console.log('무조건 실행되는 부분');
+        }
+    );
+}
+
+{
+    const f1 = (callback)=> {
+        setTimeout( function(){
+            console.log("1번 주문 완료");
+            callback();
+        }, 1000);
+    }
+
+    const f2 = (callback) => {
+        setTimeout(function(){
+            console.log("2번 주문 완료");
+            callback();
+        },1000);
+    }
+
+    const f3 = (callback) => {
+        setTimeout(function(){
+            console.log("3번 주문 완료");
+            callback();
+        },1000);
+    }
+
+    // 콜백 지옥
+    // console.log('시작')
+    // f1(function(){
+    //     f2(function(){
+    //         f3(function(){
+    //             console.log("끝");
+    //         });
+    //     });
+    // });
+
+    
+}
+
+{       // 책갈피
+    const f1 = ()=> {
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("1번 주문 완료~");
+            }, 1000);
+        });
+    };
+
+    const f2 = (message)=> {
+        console.log(message);
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("2번 주문 완료~");
+            }, 2000);
+        });
+    };
+    const f3 = (message)=> {
+        console.log(message);
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("3번 주문 완료~");
+            }, 3000);
+        });
+    };
 
 
+    // Promise.all 셋 함수 동시 실행 가장 긴거에 맞춰서 then 진행 에러일 때는 그냥 에러만 나옴 반환 데이터 없음
+    Promise.all([f1(), f2(),f3()]).then((res) => {
+        console.log(res);
+    });
 
+    //Promise.race 는 하나만 완료되면 그것을 출력
+    Promise.race([f1(), f2(),f3()]).then((res) => {
+        console.log(res);
+    });
+
+    console.log("시작");
+    f1()
+    .then((res) => f2(res))
+    .then((res) => f3(res))
+    .then((res) => console.log(res))
+    .catch(console.log)
+    .finally(()=>{
+        console.log("끝");
+    });
+}
+
+
+// async,await promise보다 가독성이 좋음
+{
+    async function getName(){  // async 붙일 시 항상 promise를 반환한다.
+        return "Mike";        // 반환값이 Promise.resolve("Tom"); 일 경우 그냥 그 값으 ㄹ사용
+        throw new Error("error");
+    }
+
+    getName().then((name) => {
+        console.log(name);
+    });
+
+    getName().catch((err)=>{    // 에러값 반환시 로그
+        console.log(err);
+    });
+
+
+    function getName2(name){
+        return new Promise((resolve,reject )=>{
+            setTimeout(()=>{
+                resolve(name);
+            }, 1000);
+        });
+    }
+
+
+    async function showName(){
+        const result = await getName2("Mike");  //await는 async안에서만 사용가능
+        console.log(result);                   // 위에가 실행된 다음 반환이 됨
+        console.log("이 친구는 result 출력하고 나옴");
+        
+    }
+
+    console.log("시작");
+    showName();
 }
 
 
 
+{       // 책갈피
+    const f1 = ()=> {
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("1번 주문 완료~");
+            }, 1000);
+        });
+    };
+
+    const f2 = (message)=> {
+        console.log(message);
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("2번 주문 완료~");
+            }, 2000);
+        });
+    };
+    const f3 = (message)=> {
+        console.log(message);
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res("3번 주문 완료~");
+            }, 3000);
+        });
+    };
+
+    // 책갈피에서 설정한 것보다 더 명확하게 순서가 보임
+    async function order(){
+        try{
+            // const result = await Promise.all([f1(), f2(), f3()]);
+            const result1 = await f1();
+            const result2 = await f2(result1);
+            const result3 = await f3(result2);
+            console.log(result3);
+        }catch(e){
+            console.log(e);
+        }
+        console.log('종료');
+    }
+}
+
+
+{   // generate 함수를 중단했다가 다시 실행
+    function* fn() {
+        try{
+            console.log(1);
+            yield 'ㅋ';
+            console.log(2);
+            yield 'ㅌ';
+            console.log(3);
+            console.log(4);
+            yield 'ㅊ';
+            return "finish";
+        }catch{
+            console.log(e);
+        }
+        
+    }
+    const a = fn();   
+    console.log(a);         // generate 객체만 반환
+    console.log(a.next()); // 가장 가까운 yield문까지 실행 {value, done}반환 done은 마지막에서 true 반환
+
+    a.return('바로 finish'); // value로 해당 값을 반환하고 done =true
+    a.throw(new Error('err')); // 끝내고 바로 catch문 실행 done =ture
+
+
+    // generate는 배열과 같은 이터레이터 문자
+    const arr10 = [1,2,3,4];
+    for(let a of arr10){
+        console.log(a);  // 이터레이터는 for-of 사용가능
+    }
+
+
+    // generate 사용시 필요순간 전까지 계산을 미루기 가능
+    function* fn1(){
+        // 입력시 num1 에 입력됨
+        let num1 = yield "첫째 숫자를 입력하시오";
+        console.log(num1);
+        let num2 = yield "두번째 숫자를 입력하시오";
+        console.log(num2);
+        
+        return num1+num2;
+    }
+
+    function* gen1(){
+        yield 'q';
+        yield 'w';
+        yield 'e';
+        yield 'r';
+    }
+
+    function* gen2(){
+        yield "Hello";
+        yield* gen1();
+        yield "!";
+    }
+
+    // done이 true가 될 때까지 실행하는 역할을 함
+    console.log(...gen2());
+}
 
 
 
@@ -1006,3 +1238,13 @@ function printExam2({kor, eng}){
     });
 
 }
+
+var arr=[15,20,1,5];
+
+var check2 = arr.some((value)=>{
+    return value>10;
+  });
+console.log(check2);
+
+
+
