@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+const querystring = require('node:querystring');
 
 function templateHTML(title, list, body){
     return `
@@ -13,6 +14,7 @@ function templateHTML(title, list, body){
     <body>
     <h1><a href="/">WEB</a></h1>
     ${list}
+    <a href="/create">create</a>
     ${body}
     </body>
     </html>
@@ -34,6 +36,7 @@ var app = http.createServer(function(request,response){
     var _url = request.url; // queryString이 들어가는 부분
     var queryData = url.parse(_url, true).query;
     var pathname =url.parse(_url, true).pathname;
+    console.log(pathname);
     if(pathname==='/'){
         if(queryData.id===undefined){
             fs.readdir('./data', function(err, filelist){
@@ -43,7 +46,7 @@ var app = http.createServer(function(request,response){
                 var template= templateHTML(title, list, `<h2>${title}</h2>${content}`);
                 response.writeHead(200);
                 response.end(template);
-            })
+            });
         }else{
             fs.readdir('./data', function(err, filelist){
                 fs.readFile(`data/${queryData.id}`, 'utf8', function(err, content){
@@ -55,6 +58,38 @@ var app = http.createServer(function(request,response){
                 })
             });
         }
+    }else if(pathname==='/create'){
+        fs.readdir('./data', function(err, filelist){
+            var title='WEB-create';
+            var list = templateList(filelist);
+            var template= templateHTML(title, list, `<form action="http://localhost:3000/create_process"
+            method="post">
+                <p><input type="text" name="title" placeholder="title"></p>
+                <p>
+                    <textarea name="content" placeholder="content"></textarea>
+                </p>
+                <p>
+                    <input type="submit">
+                </p>
+            </form>`);
+            response.writeHead(200);
+            response.end(template);
+        });
+    }else if(pathname==='/create_process'){
+        var body='';
+        request.on('data', function(data){
+            body=body+data;
+        });
+        request.on('end',function(){
+            let post =querystring.parse(body);
+            var title = post.title;
+            var content = post.content;
+            console.log(content);
+            fs.writeFile(`data/${title}`, content,'utf8', function(err){
+                response.writeHead(200);
+                response.end('success');
+            })
+        });
     }else{
         response.writeHead(404);
         response.end('Not Found');
