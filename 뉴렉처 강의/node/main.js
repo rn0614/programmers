@@ -86,8 +86,8 @@ var app = http.createServer(function(request,response){
             var content = post.content;
             console.log(content);
             fs.writeFile(`data/${title}`, content,'utf8', function(err){
-                response.writeHead(200);
-                response.end('success');
+                response.writeHead(302,{Location:`/?id=${title}`});
+                response.end();
             })
         });
     }else{
