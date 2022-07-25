@@ -2,35 +2,12 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 const querystring = require('node:querystring');
+var template = require('./lib/template.js');
+var path = require('path');
+var sanitizeHtml = require('sanitize-html');
 
-function templateHTML(title, list, body){
-    return `
-    <!doctype html>
-    <html>
-    <head>
-    <title>WEB1 - ${title}</title>
-    <meta charset="utf-8">
-    </head>
-    <body>
-    <h1><a href="/">WEB</a></h1>
-    ${list}
-    <a href="/create">create</a>
-    ${body}
-    </body>
-    </html>
-    `;
-}
 
-function templateList(filelist){
-    var list='<ul>';
-    var i=0;
-    while(i<filelist.length){
-        list = list+`<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`
-        i+=1
-    }
-    list=list+'</ul>';
-    return list;
-}
+
 
 var app = http.createServer(function(request,response){
     var _url = request.url; // queryString이 들어가는 부분
@@ -42,27 +19,32 @@ var app = http.createServer(function(request,response){
             fs.readdir('./data', function(err, filelist){
                 var title='Welcome';
                 var content='Hello javaScript';
-                var list = templateList(filelist);
-                var template= templateHTML(title, list, `<h2>${title}</h2>${content}`);
+                var list = template.list(filelist);
+                var html= template.html(title, list, `<h2>${title}</h2>${content}`);
                 response.writeHead(200);
-                response.end(template);
+                response.end(html);
             });
         }else{
             fs.readdir('./data', function(err, filelist){
-                fs.readFile(`data/${queryData.id}`, 'utf8', function(err, content){
+                var filteredId= path.parse(queryData.id).base;
+                fs.readFile(`data/${filteredId}`, 'utf8', function(err, content){
                     var title= queryData.id;
-                    var list = templateList(filelist);
-                    var template= templateHTML(title, list, `<h2>${title}</h2>${content}`);
+                    var sanitizedTitle = sanitizeHtml(title);
+                    var sanitizeContent = sanitizeHtml(content,{
+                        allowedTags:['h1']
+                    });
+                    var list = template.list(filelist);
+                    var html= template.html(sanitizedTitle, list, `<h2>${sanitizedTitle}</h2>${sanitizeContent}`);
                     response.writeHead(200);
-                    response.end(template);
+                    response.end(html);
                 })
             });
         }
     }else if(pathname==='/create'){
         fs.readdir('./data', function(err, filelist){
             var title='WEB-create';
-            var list = templateList(filelist);
-            var template= templateHTML(title, list, `<form action="http://localhost:3000/create_process"
+            var list = template.list(filelist);
+            var html= template.html(title, list, `<form action="http://localhost:3000/create_process"
             method="post">
                 <p><input type="text" name="title" placeholder="title"></p>
                 <p>
@@ -73,7 +55,7 @@ var app = http.createServer(function(request,response){
                 </p>
             </form>`);
             response.writeHead(200);
-            response.end(template);
+            response.end(html);
         });
     }else if(pathname==='/create_process'){
         var body='';
