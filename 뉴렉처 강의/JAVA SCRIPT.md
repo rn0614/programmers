@@ -8,7 +8,7 @@
 
 > javaScript의 언어 탄생은 form 객체로부터 나온다. 기존의 post 방식에서 유효성 검사를 하기 위해 form 객체가 나왔고 이를 활용할 수 있는 언어가 javaScript
 
-
+ 
 
 - javaScript는 <script> 태그 사이에 위치한다.
 
