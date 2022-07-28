@@ -101,3 +101,54 @@ return answer;
 
 
 
+
+
+### 스택과 큐
+
+``` javascript
+//스택
+배열.push('값') // 맨 위에 아이템 삽입
+배열.pop()  // 맨 위의 아이템을 제거 및 반환
+
+//큐
+배열.push('값') // 큐에 아이템을 추가
+배열.shift() // 큐에 아이템 제거 및 반환
+
+//공통
+배열.contains('값') // 값이 배열에 있는지 확인
+배열.size() //  총 개수 반환
+
+
+//트리
+```
+
+
+
+
+
+
+
+### 프로그래머스 완주하지 못한 선수
+
+> 전략 : 완주자와 비완주자 이름별 숫자를 비교하여 같지 않다(or 1 작을 시 해당 이름을 리턴)
+
+``` javascript
+function solution(participant, completion) {
+    var mapParticipant = new Map()
+    for(var i of participant){
+        mapParticipant.set(i , mapParticipant.get(i)+1 || 1)
+    }
+    
+    var mapCompletion = new Map()
+    for(var i of completion){
+        mapCompletion.set(i , mapCompletion.get(i)+1 || 1)
+    }
+    
+    for(var i of mapParticipant){
+        if(mapCompletion.get(i[0])!=i[1]){
+            return i[0]
+        }
+    }
+}
+```
+
