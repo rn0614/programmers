@@ -22,7 +22,7 @@ let reports = [... new Set([입력배열])].map( a=> {return a.split(' ')});
 
 
 - 자료구조 Map을 통한 key - value 형식 생성 => Map자료형.set( key, value)
-- ||을 통해 앞에 내용이 undefined 면 뒤의 1이 입력되도록 생성
+- ||을 통해 앞에 내용이 undefined 면 뒤의 1이 입력되도록 생성 
 
 ``` javascript
 // 입력배열 =[['aa', 'bb'], ['ccc', 'ddd']]
@@ -150,5 +150,47 @@ function solution(participant, completion) {
         }
     }
 }
+```
+
+
+
+
+
+### 로또의 최고 순위와 최저 순위
+
+> 전략 : 최저순위개수 + 0의개수는  최고순위 개수
+>
+> ​           순위와 개수는 1대1 대응 관계( 객체로 만들기 가능)
+
+- lottos 안의 숫자가 win_nums에 포함 여부 조사
+
+``` javascript
+let minWin=0;
+for(var i=0; i<lottos.length; i++){
+  let lotto= lottos[i]
+  if(win_nums.includes(lotto)){
+    minWin=minWin+1
+  };    
+}
+```
+
+
+
+- lottos 안에 0 개수 세기
+
+    let zero=(lottos)=>{
+      let temp=0;
+      for(var i=0; i<lottos.length; i++){
+          if(lottos[i]===0) temp=temp+1
+      }
+      return temp;
+    }
+
+
+- [최대등수, 최소등수] 출력
+
+``` javascript
+const rate={6:1,5:2,3:4,4:3,3:4,2:5,1:6,0:6}; 
+answer.push(rate[minWin+zero(lottos)],rate[minWin]);
 ```
 
