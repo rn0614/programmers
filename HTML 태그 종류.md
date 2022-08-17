@@ -37,3 +37,63 @@ a href="링크주소" target="_blank" : 링크 사이트로 이동
 
 
 form action="자바단 or jsp" method="post": 
+
+input type="text or submit" : 입력    ( autopocus 사용시 화면 뜨면 커서, required)
+
+- minlength
+
+
+
+label for="태그id" :  라벨과 태그 연결
+
+select_option : 선택용 태그 (value로 서버에 넘겨지는 값 지정, selected로 초기값 설정)
+
+textarea cols="가로" rows="세로" : 여러줄 입력창
+
+`<link rel="stylesheet" href="css/style.css">`
+
+
+
+# 선택자
+
+태그{}
+
+.클래스{}
+
+#아이디{}
+
+
+
+태그.아래태그
+
+태그>내부태그
+
+태그 내부태그
+
+태그[attr=[]]
+
+
+
+# CSS
+
+font-size
+
+font-family
+
+color
+
+margin-left
+
+padding
+
+
+
+
+
+.box:hover{ transform:rotate(15deg) } : 마우스를 박스클래스에 올렸을 때 내부 실행
+
+
+
+폰트 구굴에서 가져오기
+
+@import url('wnth');
