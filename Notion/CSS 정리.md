@@ -62,9 +62,14 @@ css는 누가 어떤 속성을 가지고 있냐를 정의함.
         - rows=””
     - <progress>
     - <meter>
+    - <audio>
+        - src=””
+        - controls
+        - autoplay
+        - loop
+    - <video>
+    - <track>
     - 
-
-         
 
 - jQuery로 attribute추가하기
 
@@ -135,7 +140,7 @@ li{
 | background-position | 배경 위치 | right cneter; |
 | background-attachment | 배경 이미지 고정 | fixed |
 | background1 | 배경통합 | image-repeat-attachement-position-clip-origin-size |
-| display | 화면 배치방법 | none,contents,block,inline-block,table,table-cell |
+| display | 화면 배치방법 | none,contents,block,inline-block,flex,table,table-cell |
 | border-style | 테두리 스타일 | dashed, solid |
 | border-width | 테두리 굵기 | 10px |
 | border | 테두리 | width-style-color |
@@ -143,11 +148,24 @@ li{
 | box-sizing | 박스 너비기준 | content-box, border-box |
 | float | 박스 위치 정하기 | left,right |
 | clear | float배치 취소 | both |
+| margin | 외부 마진 | 0 auto (중앙배치) |
+| position | 위치기준 | relative, absolute, fixed |
+| visibility | hidden시 공간 유지(*공간없애려면 display:none) | visible, hidden,collapse |
+| border-collapse | 테이블 td 사이를 분리 | separate |
+| border-spacing | 인접한 td사이의 거리 | 5px |
+| empty-cells | 값이 없는 빈 셀 숨기기 | hide |
+| vertical-align | 내용 수직정렬 | middle |
+| flex-direction | 플렉스 항목 방향 | row, column |
+| justify-content | 배치방법 | center, space-around, space-between |
+| align-items | 컬럼방향  | flex-start, center |
+|  |  |  |
 
 - margin 중첩현상
     
     margin은 상하로는 가장 큰 값을 갖는다. 좌우로는 마진합의 값으로
     
+
+- lorem ipsum 을 통해 test data 생성가능
 
 - 접두사(브라우저 호환성 바꾸기)
 
@@ -176,3 +194,118 @@ li{
     - ex : 소문자 x의 높이 기준 비율 ( 0.9ex )
     - px : 픽셀기준 모니터에 따른 상대크기 (10px)
     - pt : 포인트 기준
+    
+- 선택자
+
+```css
+tag{}
+
+.class{}
+
+#id{}
+
+#id #childId{}
+
+#id > fureChildTag{}
+
+#id ~ brotherTag{}
+
+#id + closeBrotherTag{}
+
+#id[attr]{}
+
+#id[attr="correct값"]{}
+
+#id[attr~="포함된 값중 하나"]
+
+#id[attr!="-으로 연결된 속성값 중 포함된 값중 하나"]
+
+#id[attr^="시작값"]
+
+#id[attr$="끝값"]
+
+#id[attr$=:"포합값"]
+```
+
+- 가상 클래스(:)
+
+|  |  |  |
+| --- | --- | --- |
+| link |  |  |
+| visited |  |  |
+| hover |  |  |
+| active |  |  |
+| focus |  |  |
+| enable |  |  |
+| idsable |  |  |
+| checked |  |  |
+| root |  |  |
+| nth-child |  |  |
+| nth-last-child |  |  |
+| nth-of-type |  |  |
+| nth-of-last-type |  |  |
+| first-child, last-child |  |  |
+| only-child, only-of-type |  |  |
+| target |  |  |
+| not |  |  |
+
+- 가상요소 (::)
+
+|  |  |  |
+| --- | --- | --- |
+| first-line, first-letter |  |  |
+| before, after |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+
+- 애니메이션 단위 설정하기
+
+```css
+#id{
+	animation-name : name1;
+}
+
+@keyframes name1{
+	from{
+		background-color: blue;
+	}
+	
+	to{
+		background-color:red;
+		transfrom: rotate(90deg);
+	}
+
+}
+```
+
+- 반응형 웹사이트
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+- 반응형 웹사이트에서는 px→em  px→%를 사용하여 기기에 따라 변하는 크기지정 필요
+
+- 미디어 쿼리
+
+```css
+@media screen and (min-width:200px) and (max-width:360px){
+	...
+}
+```
+
+|  |  |  |
+| --- | --- | --- |
+| max-width | 화면 최대 너비 | 1040px |
+| max-device-width | 기기최대 너비 | 1040px |
+| orientation | 기기 가로 세로 | landscape, portrait |
+| device-aspet-ratio | 기기비율 | 16/9 |
+|  |  |  |
+
+```css
+<link rel="stylesheet" media="screen and (max-width:768px)" href="css/tablet.css">
+```
